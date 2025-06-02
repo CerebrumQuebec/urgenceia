@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { TranslationProvider } from "@/contexts/TranslationContext";
 import { Language } from "@/translations";
+import Header from "@/components/layout/Header";
 
 interface LocaleLayoutProps {
   children: ReactNode;
@@ -17,7 +18,10 @@ export default async function LocaleLayout({
 
   return (
     <TranslationProvider initialLanguage={locale}>
-      {children}
+      <div className="min-h-screen">
+        <Header />
+        <main className="pt-16">{children}</main>
+      </div>
     </TranslationProvider>
   );
 }
