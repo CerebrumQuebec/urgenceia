@@ -9,7 +9,10 @@ export const en = {
     subtitle: "For Francophone Cultural Sovereignty",
     description:
       "Tech giants are using our cultural data to train their AI without our consent. It's time to act.",
-    cta: "Sign the open letter",
+    cta: {
+      primary: "Sign the open letter",
+      secondary: "Discover actions",
+    },
   },
   letter: {
     title: "Law 25: Leverage existing laws",
@@ -29,8 +32,17 @@ export const en = {
   },
   actions: {
     title: "The 7 actions for digital sovereignty",
-    current: "Current action",
+    subtitle:
+      "A concrete action plan to protect our cultural heritage against algorithmic pillaging",
+    progress: "Progress",
+    ready: "ready",
+    current: "Available actions",
     coming: "Coming soon",
+    cta: {
+      text: "Join the movement for Quebec's digital sovereignty",
+      primary: "Sign the open letter",
+      secondary: "Receive updates",
+    },
     action6: {
       title: "Leverage existing laws",
       description: "Use Law 25 and GDPR to require explicit consent",
@@ -39,5 +51,6 @@ export const en = {
   navigation: {
     actions: "Actions",
     about: "About",
+    newsletter: "Newsletter",
   },
 };

@@ -9,7 +9,10 @@ export const fr = {
     subtitle: "Pour la souveraineté culturelle francophone",
     description:
       "Les géants technologiques utilisent nos données culturelles pour entraîner leurs IA sans notre consentement. Il est temps d'agir.",
-    cta: "Signer la lettre ouverte",
+    cta: {
+      primary: "Signer la lettre ouverte",
+      secondary: "Découvrir les actions",
+    },
   },
   letter: {
     title: "Loi 25 : Exploiter les lois existantes",
@@ -29,8 +32,17 @@ export const fr = {
   },
   actions: {
     title: "Les 7 actions pour la souveraineté numérique",
-    current: "Action en cours",
+    subtitle:
+      "Un plan d'action concret pour protéger notre patrimoine culturel contre le pillage algorithmique",
+    progress: "Progression",
+    ready: "prêtes",
+    current: "Actions disponibles",
     coming: "Prochainement",
+    cta: {
+      text: "Rejoignez le mouvement pour la souveraineté numérique du Québec",
+      primary: "Signer la lettre ouverte",
+      secondary: "Recevoir les mises à jour",
+    },
     action6: {
       title: "Exploiter les lois existantes",
       description:
@@ -40,5 +52,6 @@ export const fr = {
   navigation: {
     actions: "Actions",
     about: "À propos",
+    newsletter: "Infolettre",
   },
 };
