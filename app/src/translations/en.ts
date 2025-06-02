@@ -36,4 +36,8 @@ export const en = {
       description: "Use Law 25 and GDPR to require explicit consent",
     },
   },
+  navigation: {
+    actions: "Actions",
+    about: "About",
+  },
 };

@@ -37,4 +37,8 @@ export const fr = {
         "Utiliser la Loi 25 et le RGPD pour exiger le consentement explicite",
     },
   },
+  navigation: {
+    actions: "Actions",
+    about: "À propos",
+  },
 };
