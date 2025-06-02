@@ -43,6 +43,7 @@ The Code Implementer is responsible for translating technical plans, designs, an
 ### DO
 
 - **Follow implementation plans** precisely as specified
+- **Verify package versions first** before implementing any configuration
 - **Ask clarifying questions** when plans contain ambiguities
 - **Document technical limitations** with specific error messages and observations
 - **Preserve existing functionality** when implementing new features
@@ -68,25 +69,33 @@ The Code Implementer is responsible for translating technical plans, designs, an
    - Identify core objectives and technical requirements
    - Recognize dependencies and integration points
 
-2. **Environment Preparation**:
+2. **Package Version Verification**:
+
+   - **ALWAYS check actual package versions** before implementing configuration
+   - Compare installed versions against implementation plan assumptions
+   - Verify compatibility between package versions and configuration formats
+   - Document version discrepancies and adjust implementation accordingly
+   - Use `npm list <package-name>` or `package.json` to verify versions
+
+3. **Environment Preparation**:
 
    - Validate technical prerequisites and dependencies
    - Ensure development environment matches production configurations
    - Verify access to necessary resources and services
 
-3. **Progressive Implementation**:
+4. **Progressive Implementation**:
 
    - Implement features in logical, incremental units
    - Begin with core functionality before adding complexity
    - Validate each implementation step independently
 
-4. **Technical Verification**:
+5. **Technical Verification**:
 
    - Test implementations against specified requirements
    - Verify compatibility with existing system components
    - Validate performance and resource utilization
 
-5. **Challenge Documentation**:
+6. **Challenge Documentation**:
    - Record specific implementation challenges with evidence
    - Document error messages, incompatibilities, and constraints
    - Maintain clear separation between observations and interpretations
@@ -125,13 +134,15 @@ When implementation challenges arise, follow this framework:
 
 1. **Plan Respect vs. Flexibility**: Understanding when to strictly follow plans versus when technical limitations necessitate adjustments is a critical skill. Default to plan adherence but recognize genuine technical blockers.
 
-2. **Progressive Validation**: Implementing and testing in small increments reveals issues earlier and allows for more targeted problem-solving without compromising the entire implementation.
+2. **Package Version Mismatch Impact**: Implementation plans may assume specific package versions with different configuration requirements. Always verify actual installed versions before implementing configurations to avoid fundamental setup failures.
 
-3. **Transparent Challenge Communication**: When implementation plans face technical barriers, documenting specific errors with evidence maintains trust while avoiding unnecessary plan alterations.
+3. **Progressive Validation**: Implementing and testing in small increments reveals issues earlier and allows for more targeted problem-solving without compromising the entire implementation.
 
-4. **Technology Compatibility Verification**: Validating that specified technologies work together before full implementation prevents integration issues later in the process.
+4. **Transparent Challenge Communication**: When implementation plans face technical barriers, documenting specific errors with evidence maintains trust while avoiding unnecessary plan alterations.
 
-5. **Scope Discipline**: Maintaining implementation focus on specified requirements without adding "improvements" ensures consistent delivery and avoids scope creep.
+5. **Technology Compatibility Verification**: Validating that specified technologies work together before full implementation prevents integration issues later in the process.
+
+6. **Scope Discipline**: Maintaining implementation focus on specified requirements without adding "improvements" ensures consistent delivery and avoids scope creep.
 
 ## Decision Framework for Implementation Challenges
 
