@@ -8,6 +8,56 @@ interface ActionContentProps {
   locale: "fr" | "en";
 }
 
+// Basic Markdown to HTML converter
+function markdownToHtml(markdown: string): string {
+  if (!markdown) return "";
+  return markdown
+    .split("\n")
+    .map((line) => {
+      // Headings (H1-H3)
+      if (line.startsWith("### "))
+        return `<h4 class="text-xl font-bold text-white mt-8 mb-5">${line.substring(
+          4
+        )}</h4>`;
+      if (line.startsWith("## "))
+        return `<h3 class="text-2xl font-bold text-white mt-10 mb-6">${line.substring(
+          3
+        )}</h3>`;
+      if (line.startsWith("# "))
+        return `<h2 class="text-3xl font-bold text-white mt-12 mb-7">${line.substring(
+          2
+        )}</h2>`;
+
+      // Bold (**text** or __text__)
+      line = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+      line = line.replace(/__(.*?)__/g, "<strong>$1</strong>");
+
+      // Italic (*text* or _text_)
+      line = line.replace(/\*(.*?)\*/g, "<em>$1</em>");
+      line = line.replace(/_(.*?)_/g, "<em>$1</em>");
+
+      // Links ([text](url))
+      line = line.replace(
+        /\[([^\[]+)\]\(([^\)]+)\)/g,
+        '<a href="$2" class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">$1</a>'
+      );
+
+      // Unordered lists (- item or * item)
+      if (line.startsWith("- ") || line.startsWith("* ")) {
+        // This simple converter doesn't handle nested lists or combining list items into <ul>
+        // For a full solution, a proper Markdown library would be needed.
+        return `<li class="list-disc ml-6 mb-2">${line.substring(2)}</li>`;
+      }
+
+      // Line breaks (empty line)
+      if (line.trim() === "") return "<br/>";
+
+      // Paragraphs
+      return `<p class="mb-6 text-lg leading-relaxed">${line}</p>`;
+    })
+    .join("");
+}
+
 export default function ActionContent({ action, locale }: ActionContentProps) {
   const getStatusColor = (status: Action["status"]) => {
     switch (status) {
@@ -115,24 +165,7 @@ export default function ActionContent({ action, locale }: ActionContentProps) {
                     <div
                       className="text-gray-200 leading-relaxed"
                       dangerouslySetInnerHTML={{
-                        __html: action.content.letter[locale]
-                          .split("\n")
-                          .map((paragraph) => {
-                            if (
-                              paragraph.startsWith("**") &&
-                              paragraph.endsWith("**")
-                            ) {
-                              return `<h3 class="text-2xl font-bold text-white mt-10 mb-6">${paragraph.slice(
-                                2,
-                                -2
-                              )}</h3>`;
-                            }
-                            if (paragraph.trim() === "") {
-                              return "<br/>";
-                            }
-                            return `<p class="mb-6 text-lg leading-relaxed">${paragraph}</p>`;
-                          })
-                          .join(""),
+                        __html: markdownToHtml(action.content.letter[locale]),
                       }}
                     />
                   </div>
@@ -147,14 +180,7 @@ export default function ActionContent({ action, locale }: ActionContentProps) {
                     <div
                       className="text-gray-200 leading-relaxed"
                       dangerouslySetInnerHTML={{
-                        __html: action.content.text[locale]
-                          .split("\n")
-                          .map((paragraph) =>
-                            paragraph.trim() === ""
-                              ? "<br/>"
-                              : `<p class="mb-6 text-lg leading-relaxed">${paragraph}</p>`
-                          )
-                          .join(""),
+                        __html: markdownToHtml(action.content.text[locale]),
                       }}
                     />
                   </div>
