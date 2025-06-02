@@ -98,8 +98,8 @@ export const actions: Action[] = [
     slug: "badge-ia",
     status: "in-progress",
     title: {
-      fr: "Rendre l'IA visible dans les œuvres (BadgeIA.org)",
-      en: "Make AI visible in works (BadgeIA.org)",
+      fr: "Rendre l'IA visible dans les œuvres (BadgeAI.org)",
+      en: "Make AI visible in works (BadgeAI.org)",
     },
     description: {
       fr: "Développer un système standardisé de badges de transparence IA inspiré de Creative Commons, permettant aux créateurs d'indiquer précisément le niveau d'implication de l'IA dans leurs œuvres (Sons, Visuel, Texte) avec 5 niveaux de contribution",
@@ -115,7 +115,7 @@ export const actions: Action[] = [
 
 ## État Actuel du Projet
 
-**🚀 Site web actif :** [badgeIA.org](https://badgeIA.org)
+**🚀 Site web actif :** [badgeAI.org](https://badgeAI.org)
 
 **Phase 1 - Auto-déclaration :** ✅ **Fonctionnel**
 - Interface web permettant aux créateurs de générer des badges IA
@@ -176,7 +176,7 @@ export const actions: Action[] = [
 
 ## Current Project Status
 
-**🚀 Active website:** [badgeIA.org](https://badgeIA.org)
+**🚀 Active website:** [badgeAI.org](https://badgeAI.org)
 
 **Phase 1 - Self-declaration:** ✅ **Functional**
 - Web interface allowing creators to generate AI badges
@@ -241,7 +241,7 @@ export const actions: Action[] = [
             en: "Badge AI - Official site",
           },
           type: "link",
-          url: "https://badgeIA.org",
+          url: "https://badgeAI.org",
           description: {
             fr: "Interface de génération de badges de transparence IA",
             en: "AI transparency badge generation interface",
@@ -253,7 +253,7 @@ export const actions: Action[] = [
             en: "Badge AI technical vision",
           },
           type: "link",
-          url: "https://badgeIA.org/vision",
+          url: "https://badgeAI.org/vision",
           description: {
             fr: "Feuille de route pour l'intégration universelle",
             en: "Roadmap for universal integration",
