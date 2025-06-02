@@ -8,7 +8,7 @@ interface ActionContentProps {
   locale: "fr" | "en";
 }
 
-// Basic Markdown to HTML converter
+// Enhanced Markdown to HTML converter
 function markdownToHtml(markdown: string): string {
   if (!markdown) return "";
   return markdown
@@ -39,7 +39,7 @@ function markdownToHtml(markdown: string): string {
       // Links ([text](url))
       line = line.replace(
         /\[([^\[]+)\]\(([^\)]+)\)/g,
-        '<a href="$2" class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">$1</a>'
+        '<a href="$2" class="text-blue-400 hover:text-blue-300 underline transition-colors" target="_blank" rel="noopener noreferrer">$1</a>'
       );
 
       // Unordered lists (- item or * item)
@@ -62,14 +62,14 @@ export default function ActionContent({ action, locale }: ActionContentProps) {
   const getStatusColor = (status: Action["status"]) => {
     switch (status) {
       case "ready":
-        return "text-green-400";
+        return "from-green-500 to-emerald-500";
       case "in-progress":
-        return "text-blue-400";
+        return "from-blue-500 to-cyan-500";
       case "completed":
-        return "text-purple-400";
+        return "from-purple-500 to-pink-500";
       case "coming-soon":
       default:
-        return "text-gray-400";
+        return "from-gray-500 to-gray-600";
     }
   };
 
@@ -98,52 +98,74 @@ export default function ActionContent({ action, locale }: ActionContentProps) {
     );
   };
 
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case "easy":
+        return "from-green-600/30 to-emerald-600/30 border-green-500/50";
+      case "medium":
+        return "from-yellow-600/30 to-amber-600/30 border-yellow-500/50";
+      case "hard":
+        return "from-red-600/30 to-orange-600/30 border-red-500/50";
+      default:
+        return "from-gray-600/30 to-gray-700/30 border-gray-500/50";
+    }
+  };
+
   return (
     <div className="container-wide py-16">
-      {/* Header */}
-      <div className="mb-16 max-w-5xl mx-auto">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-sm font-medium text-gray-400">
+      {/* Enhanced Header */}
+      <div className="mb-16 max-w-5xl mx-auto animate-fade-in">
+        <div className="flex items-center gap-4 mb-8">
+          <span className="text-sm font-mono text-gray-400 glass px-3 py-1 rounded-lg">
             Action #{action.id}
           </span>
           <span
-            className={`text-sm font-medium ${getStatusColor(action.status)}`}
+            className={`inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full bg-gradient-to-r ${getStatusColor(
+              action.status
+            )}`}
           >
+            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
             {getStatusText(action.status)}
           </span>
         </div>
 
-        <h1 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
-          {action.title[locale]}
+        <h1 className="text-5xl md:text-7xl font-bold text-white mb-10 leading-tight animate-fade-in-delay-1">
+          <span className="text-gradient bg-gradient-to-r from-blue-400 via-green-400 to-purple-400">
+            {action.title[locale]}
+          </span>
         </h1>
 
-        <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
+        <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed animate-fade-in-delay-2">
           {action.description[locale]}
         </p>
 
-        {/* Meta Information */}
-        <div className="flex flex-wrap gap-6 text-sm">
-          <div className="flex items-center gap-3 bg-gray-800/50 rounded-lg px-4 py-2">
-            <span className="text-gray-400">
+        {/* Enhanced Meta Information */}
+        <div className="flex flex-wrap gap-4 text-sm animate-fade-in-delay-3">
+          <div className="glass rounded-xl px-6 py-3 hover-lift">
+            <span className="text-gray-400 mr-3">
               {locale === "fr" ? "Difficulté:" : "Difficulty:"}
             </span>
-            <span className="bg-gray-700 text-gray-200 px-3 py-1 rounded-md font-medium">
+            <span
+              className={`inline-flex px-3 py-1 rounded-lg font-semibold bg-gradient-to-r ${getDifficultyColor(
+                action.meta.difficulty
+              )} border backdrop-blur-sm`}
+            >
               {getDifficultyText(action.meta.difficulty)}
             </span>
           </div>
-          <div className="flex items-center gap-3 bg-gray-800/50 rounded-lg px-4 py-2">
-            <span className="text-gray-400">
+          <div className="glass rounded-xl px-6 py-3 hover-lift">
+            <span className="text-gray-400 mr-3">
               {locale === "fr" ? "Catégorie:" : "Category:"}
             </span>
-            <span className="bg-gray-700 text-gray-200 px-3 py-1 rounded-md font-medium capitalize">
+            <span className="text-white font-semibold capitalize">
               {action.meta.category}
             </span>
           </div>
-          <div className="flex items-center gap-3 bg-gray-800/50 rounded-lg px-4 py-2">
-            <span className="text-gray-400">
+          <div className="glass rounded-xl px-6 py-3 hover-lift">
+            <span className="text-gray-400 mr-3">
               {locale === "fr" ? "Impact:" : "Impact:"}
             </span>
-            <span className="bg-gray-700 text-gray-200 px-3 py-1 rounded-md font-medium capitalize">
+            <span className="text-white font-semibold capitalize">
               {action.meta.impact}
             </span>
           </div>
@@ -156,11 +178,16 @@ export default function ActionContent({ action, locale }: ActionContentProps) {
           {/* Main Content */}
           <div className="lg:col-span-2">
             {action.content.letter && (
-              <div className="mb-16">
-                <h2 className="text-3xl font-bold text-white mb-8">
-                  {locale === "fr" ? "Lettre ouverte" : "Open Letter"}
+              <div className="mb-16 animate-fade-in-delay-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-10 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                    <span className="text-2xl">📝</span>
+                  </div>
+                  <span className="text-gradient bg-gradient-to-r from-blue-400 to-cyan-400">
+                    {locale === "fr" ? "Lettre ouverte" : "Open Letter"}
+                  </span>
                 </h2>
-                <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-2xl p-10 border border-gray-700/50 backdrop-blur-sm">
+                <div className="glass rounded-3xl p-10 hover-lift">
                   <div className="prose prose-invert prose-lg max-w-none">
                     <div
                       className="text-gray-200 leading-relaxed"
@@ -174,8 +201,8 @@ export default function ActionContent({ action, locale }: ActionContentProps) {
             )}
 
             {action.content.text && (
-              <div className="mb-16">
-                <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-2xl p-10 border border-gray-700/50 backdrop-blur-sm">
+              <div className="mb-16 animate-fade-in-delay-4">
+                <div className="glass rounded-3xl p-10 hover-lift">
                   <div className="prose prose-invert prose-lg max-w-none">
                     <div
                       className="text-gray-200 leading-relaxed"
@@ -189,10 +216,10 @@ export default function ActionContent({ action, locale }: ActionContentProps) {
             )}
           </div>
 
-          {/* Sidebar */}
+          {/* Enhanced Sidebar */}
           <div className="lg:col-span-1">
             {action.content.form && (
-              <div className="sticky top-24">
+              <div className="sticky top-28 animate-fade-in-delay-5">
                 <SignatureForm action={action} locale={locale} />
               </div>
             )}
@@ -200,11 +227,13 @@ export default function ActionContent({ action, locale }: ActionContentProps) {
         </div>
       )}
 
-      {/* Resources */}
+      {/* Enhanced Resources */}
       {action.content?.resources && action.content.resources.length > 0 && (
-        <div className="mt-16">
-          <h2 className="text-3xl font-bold text-white mb-8">
-            {locale === "fr" ? "Ressources" : "Resources"}
+        <div className="mt-20 animate-fade-in-delay-5">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10 text-center">
+            <span className="text-gradient bg-gradient-to-r from-purple-400 to-pink-400">
+              {locale === "fr" ? "Ressources" : "Resources"}
+            </span>
           </h2>
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
             {action.content.resources.map((resource, index) => (
@@ -213,21 +242,38 @@ export default function ActionContent({ action, locale }: ActionContentProps) {
                 href={resource.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block p-6 bg-gradient-to-br from-gray-800/80 to-gray-900/80 rounded-xl border border-gray-700/50 hover:from-gray-700/80 hover:to-gray-800/80 transition-all duration-300 backdrop-blur-sm hover:scale-105"
+                className="group glass rounded-2xl p-6 hover-lift overflow-hidden relative"
               >
-                <h3 className="font-semibold text-white mb-3 text-lg">
-                  {resource.title[locale]}
-                </h3>
-                {resource.description && (
-                  <p className="text-sm text-gray-300 mb-4 leading-relaxed">
-                    {resource.description[locale]}
-                  </p>
-                )}
-                <div className="flex items-center gap-2 text-xs text-gray-400">
-                  <span className="capitalize font-medium">
-                    {resource.type}
-                  </span>
-                  <span>↗</span>
+                {/* Hover effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-300"></div>
+
+                <div className="relative z-10">
+                  <h3 className="font-bold text-white mb-3 text-lg group-hover:text-purple-200 transition-colors">
+                    {resource.title[locale]}
+                  </h3>
+                  {resource.description && (
+                    <p className="text-sm text-gray-300 mb-4 leading-relaxed">
+                      {resource.description[locale]}
+                    </p>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono text-gray-400 capitalize bg-gray-800/50 px-3 py-1 rounded-lg">
+                      {resource.type}
+                    </span>
+                    <svg
+                      className="w-5 h-5 text-gray-400 group-hover:text-purple-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             ))}

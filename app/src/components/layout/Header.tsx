@@ -5,12 +5,24 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useTranslation } from "@/contexts/TranslationContext";
 import LanguageToggle from "./LanguageToggle";
+import Image from "next/image";
 
 export default function Header() {
   const { t, language } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -57,42 +69,69 @@ export default function Header() {
   const isHomePage = pathname === `/${language}` || pathname === "/";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-sm border-b border-gray-800">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "glass border-b border-white/10 shadow-lg"
+          : "bg-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo/Title - Clickable */}
           <div className="flex items-center">
             <Link
               href={`/${language}`}
-              className="text-xl font-bold text-white hover:text-gray-300 transition-colors"
+              className="group relative flex items-center gap-3 text-xl font-bold text-white hover:text-gray-300 transition-all duration-300"
             >
-              {t("site.title")}
+              {/* Small logo */}
+              <div className="w-8 h-8 relative opacity-80 group-hover:opacity-100 transition-opacity">
+                <Image
+                  src="/logo.png"
+                  alt="UrgenceIA Logo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              <span className="relative z-10 text-gradient bg-gradient-to-r from-blue-400 to-green-400">
+                {t("site.title")}
+              </span>
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-green-400 blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
             </Link>
           </div>
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-1">
             {isHomePage ? (
               // Homepage navigation - scroll to sections
               <>
                 <button
                   onClick={() => handleNavigation("actions")}
-                  className="text-gray-300 hover:text-white transition-colors"
+                  className="relative text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-all duration-300 group"
                 >
-                  {t("navigation.actions")}
+                  <span className="relative z-10">
+                    {t("navigation.actions")}
+                  </span>
+                  <div className="absolute inset-0 bg-white/0 hover:bg-white/10 rounded-lg transition-all duration-300"></div>
                 </button>
                 <button
                   onClick={() => handleNavigation("about")}
-                  className="text-gray-300 hover:text-white transition-colors"
+                  className="relative text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-all duration-300 group"
                 >
-                  {t("navigation.about")}
+                  <span className="relative z-10">{t("navigation.about")}</span>
+                  <div className="absolute inset-0 bg-white/0 hover:bg-white/10 rounded-lg transition-all duration-300"></div>
                 </button>
                 <button
                   onClick={() => handleNavigation("newsletter")}
-                  className="text-gray-300 hover:text-white transition-colors"
+                  className="relative text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-all duration-300 group"
                 >
-                  {t("navigation.newsletter") ||
-                    (language === "fr" ? "Infolettre" : "Newsletter")}
+                  <span className="relative z-10">
+                    {t("navigation.newsletter") ||
+                      (language === "fr" ? "Infolettre" : "Newsletter")}
+                  </span>
+                  <div className="absolute inset-0 bg-white/0 hover:bg-white/10 rounded-lg transition-all duration-300"></div>
                 </button>
               </>
             ) : (
@@ -100,37 +139,69 @@ export default function Header() {
               <>
                 <Link
                   href={`/${language}#actions`}
-                  className="text-gray-300 hover:text-white transition-colors"
+                  className="relative text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-all duration-300 group"
                 >
-                  {t("navigation.actions")}
+                  <span className="relative z-10">
+                    {t("navigation.actions")}
+                  </span>
+                  <div className="absolute inset-0 bg-white/0 hover:bg-white/10 rounded-lg transition-all duration-300"></div>
                 </Link>
                 <Link
                   href={`/${language}#about`}
-                  className="text-gray-300 hover:text-white transition-colors"
+                  className="relative text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-all duration-300 group"
                 >
-                  {t("navigation.about")}
+                  <span className="relative z-10">{t("navigation.about")}</span>
+                  <div className="absolute inset-0 bg-white/0 hover:bg-white/10 rounded-lg transition-all duration-300"></div>
                 </Link>
                 <Link
                   href={`/${language}#newsletter`}
-                  className="text-gray-300 hover:text-white transition-colors"
+                  className="relative text-gray-300 hover:text-white px-4 py-2 rounded-lg transition-all duration-300 group"
                 >
-                  {t("navigation.newsletter") ||
-                    (language === "fr" ? "Infolettre" : "Newsletter")}
+                  <span className="relative z-10">
+                    {t("navigation.newsletter") ||
+                      (language === "fr" ? "Infolettre" : "Newsletter")}
+                  </span>
+                  <div className="absolute inset-0 bg-white/0 hover:bg-white/10 rounded-lg transition-all duration-300"></div>
                 </Link>
               </>
             )}
           </nav>
 
           {/* Right side items */}
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
             <div className="hidden md:block">
               <LanguageToggle />
             </div>
+
+            {/* CTA Button - desktop only */}
+            <Link
+              href={`/${language}/actions/loi-25`}
+              className="hidden md:flex group relative items-center gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 overflow-hidden"
+            >
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+              <span className="relative z-10 text-sm">
+                {language === "fr" ? "Agir" : "Act"}
+              </span>
+              <svg
+                className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </Link>
+
             <div className="md:hidden">
               <button
                 onClick={toggleMobileMenu}
                 type="button"
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                className="inline-flex items-center justify-center p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white/20 transition-all duration-300"
                 aria-controls="mobile-menu"
                 aria-expanded={isMobileMenuOpen}
               >
@@ -174,27 +245,31 @@ export default function Header() {
         </div>
       </div>
 
+      {/* Mobile menu with glass effect */}
       {isMobileMenuOpen && (
-        <div className="md:hidden" id="mobile-menu">
+        <div
+          className="md:hidden glass border-t border-white/10"
+          id="mobile-menu"
+        >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {isHomePage ? (
               // Homepage mobile navigation - scroll to sections
               <>
                 <button
                   onClick={() => handleNavigation("actions")}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium w-full text-left"
+                  className="text-gray-300 hover:bg-white/10 hover:text-white block px-3 py-2 rounded-lg text-base font-medium w-full text-left transition-all duration-300"
                 >
                   {t("navigation.actions")}
                 </button>
                 <button
                   onClick={() => handleNavigation("about")}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium w-full text-left"
+                  className="text-gray-300 hover:bg-white/10 hover:text-white block px-3 py-2 rounded-lg text-base font-medium w-full text-left transition-all duration-300"
                 >
                   {t("navigation.about")}
                 </button>
                 <button
                   onClick={() => handleNavigation("newsletter")}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium w-full text-left"
+                  className="text-gray-300 hover:bg-white/10 hover:text-white block px-3 py-2 rounded-lg text-base font-medium w-full text-left transition-all duration-300"
                 >
                   {t("navigation.newsletter") ||
                     (language === "fr" ? "Infolettre" : "Newsletter")}
@@ -205,21 +280,21 @@ export default function Header() {
               <>
                 <Link
                   href={`/${language}#actions`}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-white/10 hover:text-white block px-3 py-2 rounded-lg text-base font-medium transition-all duration-300"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t("navigation.actions")}
                 </Link>
                 <Link
                   href={`/${language}#about`}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-white/10 hover:text-white block px-3 py-2 rounded-lg text-base font-medium transition-all duration-300"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t("navigation.about")}
                 </Link>
                 <Link
                   href={`/${language}#newsletter`}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-300 hover:bg-white/10 hover:text-white block px-3 py-2 rounded-lg text-base font-medium transition-all duration-300"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t("navigation.newsletter") ||
@@ -227,8 +302,30 @@ export default function Header() {
                 </Link>
               </>
             )}
+
+            {/* Mobile CTA Button */}
+            <Link
+              href={`/${language}/actions/loi-25`}
+              className="mt-4 flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-500 text-white px-4 py-3 rounded-lg font-medium transition-all duration-300"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {language === "fr" ? "Agir maintenant" : "Take Action"}
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </Link>
           </div>
-          <div className="pt-4 pb-3 border-t border-gray-700">
+          <div className="pt-4 pb-3 border-t border-white/10">
             <div className="flex items-center px-5">
               <LanguageToggle />
             </div>

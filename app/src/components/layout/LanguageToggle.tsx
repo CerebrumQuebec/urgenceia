@@ -20,11 +20,20 @@ export default function LanguageToggle() {
   return (
     <button
       onClick={toggleLanguage}
-      className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors"
+      className="group relative inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
       aria-label={`Switch to ${language === "fr" ? "English" : "Français"}`}
     >
-      <span className="mr-2">🌐</span>
-      {language === "fr" ? "EN" : "FR"}
+      <div className="relative">
+        <span className="text-base group-hover:scale-110 transition-transform inline-block">
+          🌐
+        </span>
+        {/* Pulse effect on hover */}
+        <div className="absolute inset-0 rounded-full bg-blue-500/20 scale-150 opacity-0 group-hover:opacity-100 blur-sm transition-opacity"></div>
+      </div>
+      <span className="font-semibold tracking-wide">
+        {language === "fr" ? "EN" : "FR"}
+      </span>
+      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity blur-sm"></div>
     </button>
   );
 }
