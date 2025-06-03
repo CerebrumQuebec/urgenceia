@@ -20,12 +20,14 @@
 **UrgenceIA** is a bilingual (French/English) advocacy platform for Quebec's digital and cultural sovereignty regarding AI. The platform aims to mobilize researchers and the cultural community to take concrete actions against algorithmic pillaging of Quebec's cultural data.
 
 ### Mission Statement
+
 - Protect Quebec's digital sovereignty
 - Mobilize against unauthorized AI training on Quebec cultural data
 - Implement the 7-point action plan for AI resistance
 - Create a coalition of citizens, artists, lawyers, and experts
 
 ### Key Messaging
+
 - **French**: "Urgence IA - Pour la souveraineté culturelle francophone"
 - **English**: "AI Emergency - For Francophone Cultural Sovereignty"
 
@@ -114,12 +116,14 @@ urgenceia/
 ## Technology Stack
 
 ### Core Technologies
+
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Deployment**: Vercel
 
 ### Phase 1 Dependencies
+
 ```json
 {
   "dependencies": {
@@ -142,6 +146,7 @@ urgenceia/
 ```
 
 ### Phase 2 Additional Dependencies
+
 ```json
 {
   "dependencies": {
@@ -162,6 +167,7 @@ urgenceia/
 ### 1. Core Features
 
 #### 1.1 Bilingual Landing Page
+
 - Hero section with compelling call-to-action
 - French/English language toggle
 - Actions overview with status indicators
@@ -169,18 +175,21 @@ urgenceia/
 - Preview of 6 other actions as "coming soon"
 
 #### 1.2 Action-Based Architecture
+
 - Dynamic action system with 7 predefined actions
 - Individual action pages with conditional content
 - Status-based rendering (ready/coming-soon/in-progress/completed)
 - Reusable components for easy action addition
 
 #### 1.3 Open Letter Integration
+
 - Full display of the Loi 25 open letter within Action #6
 - CyberImpact form integration for signatures
 - Bilingual form handling (French/English groups)
 - Generic form component for future actions
 
 #### 1.4 Translation System
+
 - URL-based routing: `/fr/` and `/en/`
 - React Context for translation management
 - Complete bilingual content coverage
@@ -192,7 +201,11 @@ urgenceia/
 
 ```typescript
 // types/actions.ts
-export type ActionStatus = 'ready' | 'coming-soon' | 'in-progress' | 'completed';
+export type ActionStatus =
+  | "ready"
+  | "coming-soon"
+  | "in-progress"
+  | "completed";
 
 export interface Action {
   id: number;
@@ -208,15 +221,15 @@ export interface Action {
     resources?: ActionResource[];
   };
   meta: {
-    difficulty: 'easy' | 'medium' | 'hard';
+    difficulty: "easy" | "medium" | "hard";
     timeframe: string;
-    impact: 'local' | 'regional' | 'national' | 'international';
-    category: 'legal' | 'technical' | 'economic' | 'political';
+    impact: "local" | "regional" | "national" | "international";
+    category: "legal" | "technical" | "economic" | "political";
   };
 }
 
 export interface ActionForm {
-  type: 'cyberimpact' | 'custom' | 'external';
+  type: "cyberimpact" | "custom" | "external";
   config: {
     frenchGroupId?: string;
     englishGroupId?: string;
@@ -227,7 +240,7 @@ export interface ActionForm {
 
 export interface ActionResource {
   title: { fr: string; en: string };
-  type: 'pdf' | 'link' | 'video' | 'document';
+  type: "pdf" | "link" | "video" | "document";
   url: string;
   description?: { fr: string; en: string };
 }
@@ -260,50 +273,50 @@ graph TD
 export const actions: Action[] = [
   {
     id: 1,
-    slug: 'ia-locales',
-    status: 'coming-soon',
+    slug: "ia-locales",
+    status: "coming-soon",
     title: {
-      fr: 'Créer nos propres IA locales',
-      en: 'Create our own local AI'
+      fr: "Créer nos propres IA locales",
+      en: "Create our own local AI",
     },
     description: {
-      fr: 'Former un grand modèle francophone entraîné sur des corpus culturels québécois',
-      en: 'Train a large francophone model on Quebec cultural corpus'
+      fr: "Former un grand modèle francophone entraîné sur des corpus culturels québécois",
+      en: "Train a large francophone model on Quebec cultural corpus",
     },
     // ... full configuration
   },
   {
     id: 6,
-    slug: 'loi-25',
-    status: 'ready',
+    slug: "loi-25",
+    status: "ready",
     title: {
-      fr: 'Exploiter les lois existantes (Loi 25, RGPD)',
-      en: 'Leverage existing laws (Law 25, GDPR)'
+      fr: "Exploiter les lois existantes (Loi 25, RGPD)",
+      en: "Leverage existing laws (Law 25, GDPR)",
     },
     description: {
-      fr: 'Utiliser pleinement les cadres juridiques actuels pour exiger le consentement explicite',
-      en: 'Fully utilize current legal frameworks to require explicit consent'
+      fr: "Utiliser pleinement les cadres juridiques actuels pour exiger le consentement explicite",
+      en: "Fully utilize current legal frameworks to require explicit consent",
     },
     content: {
       letter: {
-        fr: '/* Loi 25 open letter content */',
-        en: '/* Law 25 open letter content */'
+        fr: "/* Loi 25 open letter content */",
+        en: "/* Law 25 open letter content */",
       },
       form: {
-        type: 'cyberimpact',
+        type: "cyberimpact",
         config: {
-          frenchGroupId: '5',
-          englishGroupId: '2',
-          accountId: '4eafd57b-a9ce-4713-31b5-9b4ec3d86605'
-        }
-      }
+          frenchGroupId: "5",
+          englishGroupId: "2",
+          accountId: "4eafd57b-a9ce-4713-31b5-9b4ec3d86605",
+        },
+      },
     },
     meta: {
-      difficulty: 'medium',
-      timeframe: 'immediate',
-      impact: 'national',
-      category: 'legal'
-    }
+      difficulty: "medium",
+      timeframe: "immediate",
+      impact: "national",
+      category: "legal",
+    },
   },
   // ... other actions with status: 'coming-soon'
 ];
@@ -312,42 +325,49 @@ export const actions: Action[] = [
 #### 2.4 Key Components
 
 **HeroSection.tsx**
+
 - Compelling headline: "Urgence IA"
 - Subtitle: "Pour la souveraineté culturelle francophone"
 - Call-to-action button leading to actions overview
 - Modern, attention-grabbing design
 
 **ActionsOverview.tsx**
+
 - Grid display of all 7 actions
 - Action status indicators (ready/coming-soon)
 - Progress tracking visualization
 - Quick action descriptions
 
 **ActionCard.tsx**
+
 - Individual action preview
 - Status badge and difficulty indicator
 - Click-through to detailed action page
 - Responsive card design
 
 **ActionDetail.tsx**
+
 - Full action page layout
 - Dynamic content rendering based on action data
 - Conditional form display
 - Resource links and downloads
 
 **ActionForm.tsx**
+
 - Generic form component
 - CyberImpact integration for ready actions
 - Coming soon placeholders
 - Bilingual field handling
 
 **ActionContent.tsx**
+
 - Markdown content renderer
 - Letter display for legal actions
 - Rich text formatting
 - Citation and reference handling
 
 **ActionStatus.tsx**
+
 - Visual status indicators
 - Progress tracking
 - Timeline information
@@ -356,12 +376,13 @@ export const actions: Action[] = [
 ### 3. Translation Implementation
 
 #### 3.1 Middleware Configuration
+
 ```typescript
 // middleware.ts
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
-const locales = ['fr', 'en'];
-const defaultLocale = 'fr';
+const locales = ["fr", "en"];
+const defaultLocale = "fr";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -377,32 +398,32 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|_next).*)',
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|_next).*)"],
 };
 ```
 
 #### 3.2 Translation Structure
+
 ```typescript
 // translations/fr.ts
 export const fr = {
   site: {
     title: "UrgenceIA",
     description: "Pour la souveraineté culturelle francophone",
-    tagline: "Agir maintenant contre le pillage algorithmique"
+    tagline: "Agir maintenant contre le pillage algorithmique",
   },
   hero: {
     title: "Urgence IA",
     subtitle: "Pour la souveraineté culturelle francophone",
-    description: "Les géants technologiques utilisent nos données culturelles pour entraîner leurs IA sans notre consentement. Il est temps d'agir.",
-    cta: "Signer la lettre ouverte"
+    description:
+      "Les géants technologiques utilisent nos données culturelles pour entraîner leurs IA sans notre consentement. Il est temps d'agir.",
+    cta: "Signer la lettre ouverte",
   },
   letter: {
     title: "Loi 25 : Exploiter les lois existantes",
     subtitle: "Une lettre ouverte pour protéger nos données",
     readMore: "Lire la lettre complète",
-    sign: "Co-signer cette lettre"
+    sign: "Co-signer cette lettre",
   },
   form: {
     firstName: "Prénom",
@@ -412,7 +433,7 @@ export const fr = {
     email: "Courriel",
     submit: "Signer la lettre",
     success: "Merci pour votre signature !",
-    error: "Erreur lors de l'envoi. Veuillez réessayer."
+    error: "Erreur lors de l'envoi. Veuillez réessayer.",
   },
   actions: {
     title: "Les 7 actions pour la souveraineté numérique",
@@ -420,15 +441,17 @@ export const fr = {
     coming: "Prochainement",
     action6: {
       title: "Exploiter les lois existantes",
-      description: "Utiliser la Loi 25 et le RGPD pour exiger le consentement explicite"
-    }
-  }
+      description:
+        "Utiliser la Loi 25 et le RGPD pour exiger le consentement explicite",
+    },
+  },
 };
 ```
 
 ### 4. Design System Integration
 
 #### 4.1 Global Styles (from BadgeAI.org)
+
 ```css
 /* globals.css */
 @tailwind base;
@@ -442,14 +465,19 @@ export const fr = {
 
   body {
     @apply bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-gray-100;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-attachment: fixed;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold leading-tight mb-4 tracking-tight;
   }
 
@@ -508,15 +536,27 @@ export const fr = {
 
   .animated-gradient-text {
     @apply font-bold text-transparent bg-clip-text;
-    background-image: linear-gradient(90deg, #3b82f6, #4f46e5, #7c3aed, #3b82f6);
+    background-image: linear-gradient(
+      90deg,
+      #3b82f6,
+      #4f46e5,
+      #7c3aed,
+      #3b82f6
+    );
     background-size: 300% 100%;
     animation: textGradientAnimation 8s linear infinite;
   }
 
   @keyframes textGradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
   .hover-lift {
@@ -526,28 +566,29 @@ export const fr = {
 ```
 
 #### 4.2 Tailwind Configuration
+
 ```javascript
 // tailwind.config.js
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
         primary: {
-          50: '#eff6ff',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
+          50: "#eff6ff",
+          500: "#3b82f6",
+          600: "#2563eb",
+          700: "#1d4ed8",
         },
-        'surface-card': 'rgba(255, 255, 255, 0.05)',
+        "surface-card": "rgba(255, 255, 255, 0.05)",
       },
       boxShadow: {
-        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        'glow': '0 10px 25px -3px rgba(59, 130, 246, 0.5), 0 4px 6px -2px rgba(59, 130, 246, 0.25)',
+        soft: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        glow: "0 10px 25px -3px rgba(59, 130, 246, 0.5), 0 4px 6px -2px rgba(59, 130, 246, 0.25)",
       },
     },
   },
@@ -558,27 +599,36 @@ module.exports = {
 ### 5. CyberImpact Form Integration
 
 #### 5.1 SignatureForm Component
+
 ```typescript
 // components/sections/SignatureForm.tsx
-import { useTranslation } from '@/contexts/TranslationContext';
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function SignatureForm() {
   const { t, language } = useTranslation();
-  
+
   const formAction = "https://app.cyberimpact.com/optin";
-  const groupId = language === 'fr' ? '5' : '2'; // French: 5, English: 2
+  const groupId = language === "fr" ? "5" : "2"; // French: 5, English: 2
   const accountId = "4eafd57b-a9ce-4713-31b5-9b4ec3d86605";
-  const languageCode = language === 'fr' ? 'fr_ca' : 'en_ca';
+  const languageCode = language === "fr" ? "fr_ca" : "en_ca";
 
   return (
     <div className="card">
-      <h3 className="text-2xl font-bold mb-6">{t('form.title')}</h3>
-      
-      <form action={formAction} method="post" acceptCharset="utf-8" className="space-y-4">
+      <h3 className="text-2xl font-bold mb-6">{t("form.title")}</h3>
+
+      <form
+        action={formAction}
+        method="post"
+        acceptCharset="utf-8"
+        className="space-y-4"
+      >
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="ci_firstname" className="block text-sm font-medium mb-2">
-              {t('form.firstName')} *
+            <label
+              htmlFor="ci_firstname"
+              className="block text-sm font-medium mb-2"
+            >
+              {t("form.firstName")} *
             </label>
             <input
               type="text"
@@ -589,10 +639,13 @@ export default function SignatureForm() {
               className="w-full p-3 rounded-lg bg-gray-800/50 border border-gray-600 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
             />
           </div>
-          
+
           <div>
-            <label htmlFor="ci_lastname" className="block text-sm font-medium mb-2">
-              {t('form.lastName')} *
+            <label
+              htmlFor="ci_lastname"
+              className="block text-sm font-medium mb-2"
+            >
+              {t("form.lastName")} *
             </label>
             <input
               type="text"
@@ -606,8 +659,11 @@ export default function SignatureForm() {
         </div>
 
         <div>
-          <label htmlFor="ci_company" className="block text-sm font-medium mb-2">
-            {t('form.company')}
+          <label
+            htmlFor="ci_company"
+            className="block text-sm font-medium mb-2"
+          >
+            {t("form.company")}
           </label>
           <input
             type="text"
@@ -620,7 +676,7 @@ export default function SignatureForm() {
 
         <div>
           <label htmlFor="ci_note" className="block text-sm font-medium mb-2">
-            {t('form.title')}
+            {t("form.title")}
           </label>
           <input
             type="text"
@@ -632,7 +688,7 @@ export default function SignatureForm() {
 
         <div>
           <label htmlFor="ci_email" className="block text-sm font-medium mb-2">
-            {t('form.email')} *
+            {t("form.email")} *
           </label>
           <input
             type="email"
@@ -645,21 +701,41 @@ export default function SignatureForm() {
         </div>
 
         {/* Hidden fields for CyberImpact */}
-        <div style={{ display: 'block', visibility: 'hidden', height: '1px' }}>
-          <input type="hidden" id="ci_groups" name="ci_groups" value={groupId} />
-          <input type="hidden" id="ci_account" name="ci_account" value={accountId} />
-          <input type="hidden" id="ci_language" name="ci_language" value={languageCode} />
+        <div style={{ display: "block", visibility: "hidden", height: "1px" }}>
+          <input
+            type="hidden"
+            id="ci_groups"
+            name="ci_groups"
+            value={groupId}
+          />
+          <input
+            type="hidden"
+            id="ci_account"
+            name="ci_account"
+            value={accountId}
+          />
+          <input
+            type="hidden"
+            id="ci_language"
+            name="ci_language"
+            value={languageCode}
+          />
           <input type="hidden" id="ci_sent_url" name="ci_sent_url" value="" />
           <input type="hidden" id="ci_error_url" name="ci_error_url" value="" />
-          <input type="hidden" id="ci_confirm_url" name="ci_confirm_url" value="" />
+          <input
+            type="hidden"
+            id="ci_confirm_url"
+            name="ci_confirm_url"
+            value=""
+          />
         </div>
 
         <button
           type="submit"
           className="btn btn-primary w-full py-4 text-lg font-semibold"
-          aria-label={t('form.submit')}
+          aria-label={t("form.submit")}
         >
-          {t('form.submit')}
+          {t("form.submit")}
         </button>
       </form>
     </div>
@@ -672,6 +748,7 @@ export default function SignatureForm() {
 ## Phase 2 - Extended Features
 
 ### 1. Additional Actions (2-7)
+
 - Progressive revelation of the remaining 6 actions
 - Individual landing pages for each action
 - Action-specific forms and resources
@@ -679,6 +756,7 @@ export default function SignatureForm() {
 ### 2. Firebase Integration
 
 #### 2.1 Authentication System
+
 ```typescript
 // Firebase configuration
 const firebaseConfig = {
@@ -692,6 +770,7 @@ const firebaseConfig = {
 ```
 
 #### 2.2 File Management System
+
 ```typescript
 // Firestore collections structure
 collections = {
@@ -699,9 +778,9 @@ collections = {
     uid: string,
     email: string,
     displayName: string,
-    role: 'user' | 'admin',
+    role: "user" | "admin",
     verified: boolean,
-    createdAt: timestamp
+    createdAt: timestamp,
   },
   documents: {
     id: string,
@@ -711,7 +790,7 @@ collections = {
     actionId: number, // 1-7 for the actions
     uploadedBy: string, // user uid
     approved: boolean,
-    createdAt: timestamp
+    createdAt: timestamp,
   },
   blogPosts: {
     id: string,
@@ -721,21 +800,24 @@ collections = {
     authorId: string,
     published: boolean,
     createdAt: timestamp,
-    updatedAt: timestamp
-  }
-}
+    updatedAt: timestamp,
+  },
+};
 ```
 
 ### 3. Blog System
 
 #### 3.1 Content Management Recommendations
+
 **Option 1: Firebase + Markdown**
+
 - Store blog posts in Firestore
 - Use markdown for content formatting
 - Admin interface for CRUD operations
 - Version control for drafts
 
 **Option 2: Firebase + Rich Text Editor**
+
 - Firestore for storage
 - Rich text editor (TinyMCE, Quill.js)
 - Media management for images
@@ -744,6 +826,7 @@ collections = {
 **Recommendation**: Option 1 (Markdown) for simplicity and developer-friendly workflow.
 
 #### 3.2 Blog Features
+
 - Bilingual post management
 - SEO optimization
 - RSS feed generation
@@ -753,6 +836,7 @@ collections = {
 ### 4. Stripe Integration
 
 #### 4.1 Donation System
+
 - One-time donations
 - Monthly recurring donations
 - Multiple currency support (CAD primary)
@@ -760,6 +844,7 @@ collections = {
 - Integration with accounting systems
 
 #### 4.2 Implementation
+
 ```typescript
 // Stripe configuration
 - Product: "UrgenceIA Donation"
@@ -772,12 +857,14 @@ collections = {
 ### 5. Admin Dashboard
 
 #### 5.1 User Management
+
 - User role assignment (admin/user)
 - Account verification system
 - Access control for document uploads
 - Activity monitoring
 
 #### 5.2 Content Management
+
 - Blog post approval workflow
 - Document review and publishing
 - User-generated content moderation
@@ -788,12 +875,14 @@ collections = {
 ## Translation System
 
 ### 1. URL Structure
+
 - Default language: French (`/fr/`)
 - Secondary language: English (`/en/`)
 - Automatic redirect from root to `/fr/`
 - Language detection based on URL
 
 ### 2. Implementation Pattern
+
 ```typescript
 // Route structure
 /fr/                    -> French homepage
@@ -805,6 +894,7 @@ collections = {
 ```
 
 ### 3. Translation Context
+
 - React Context for global state management
 - Persistent language selection
 - Dynamic content switching
@@ -817,30 +907,35 @@ collections = {
 ### 1. Visual Identity
 
 #### 1.1 Color Palette
+
 - **Primary**: Blue gradient (#3b82f6 to #4f46e5)
 - **Background**: Dark gradient (gray-950 to gray-900)
 - **Text**: White/gray-100 for primary, gray-200 for secondary
 - **Accent**: Purple (#7c3aed) for highlights
 
 #### 1.2 Typography
+
 - **Primary Font**: System UI stack
 - **Headings**: Semibold, tight tracking
 - **Body**: Regular weight, relaxed leading
 - **Emphasis**: Gradient text animations
 
 #### 1.3 Components
+
 - **Cards**: Glass morphism with backdrop blur
 - **Buttons**: Gradient backgrounds with hover lift
 - **Forms**: Dark theme with blue focus states
 - **Navigation**: Clean, minimal approach
 
 ### 2. Responsive Design
+
 - **Mobile-first** approach
 - **Breakpoints**: sm (640px), md (768px), lg (1024px), xl (1280px)
 - **Container**: Max-width 4xl (896px) for content
 - **Grid**: CSS Grid and Flexbox for layouts
 
 ### 3. Accessibility
+
 - **WCAG 2.1 AA** compliance
 - **Keyboard navigation** support
 - **Screen reader** optimization
@@ -854,22 +949,23 @@ collections = {
 ### 1. Vercel Configuration
 
 #### 1.1 Build Settings
+
 ```javascript
 // next.config.js
 module.exports = {
-  output: 'standalone',
+  output: "standalone",
   images: {
-    domains: ['firebasestorage.googleapis.com'], // Phase 2
+    domains: ["firebasestorage.googleapis.com"], // Phase 2
   },
   i18n: {
-    locales: ['fr', 'en'],
-    defaultLocale: 'fr',
+    locales: ["fr", "en"],
+    defaultLocale: "fr",
   },
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/fr',
+        source: "/",
+        destination: "/fr",
         permanent: true,
       },
     ];
@@ -878,6 +974,7 @@ module.exports = {
 ```
 
 #### 1.2 Environment Variables
+
 ```bash
 # Phase 1 - Not needed
 
@@ -899,12 +996,14 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=
 ```
 
 ### 2. Domain Configuration
+
 - **Primary**: urgenceia.org (French default)
 - **Aliases**: urgenceia.com, ai-emergency.org
 - **SSL**: Automatic via Vercel
 - **CDN**: Global edge network
 
 ### 3. Performance Optimization
+
 - **Image optimization**: Next.js Image component
 - **Code splitting**: Automatic route-based splitting
 - **Caching**: Static generation where possible
@@ -917,6 +1016,7 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=
 ### Phase 1 - MVP (2-3 weeks)
 
 #### Week 1: Foundation
+
 - [ ] Repository setup and initial configuration
 - [ ] Next.js app with TypeScript and Tailwind
 - [ ] Translation system implementation
@@ -924,6 +1024,7 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=
 - [ ] Design system setup (BadgeAI.org styles)
 
 #### Week 2: Core Features
+
 - [ ] Hero section with compelling messaging
 - [ ] Open letter display component
 - [ ] CyberImpact form integration
@@ -931,6 +1032,7 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=
 - [ ] Responsive design implementation
 
 #### Week 3: Polish & Deploy
+
 - [ ] Content writing and translation
 - [ ] SEO optimization and meta tags
 - [ ] Accessibility testing and fixes
@@ -940,22 +1042,26 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=
 ### Phase 2 - Extended Features (4-6 weeks)
 
 #### Weeks 4-5: Authentication & Firebase
+
 - [ ] Firebase project setup
 - [ ] User authentication system
 - [ ] Admin dashboard basics
 - [ ] File upload infrastructure
 
 #### Weeks 6-7: Additional Actions
+
 - [ ] Actions 2-7 landing pages
 - [ ] Action-specific forms and resources
 - [ ] Document management system
 
 #### Weeks 8-9: Blog System
+
 - [ ] Blog infrastructure (Firebase + Markdown)
 - [ ] Admin blog management interface
 - [ ] SEO and RSS implementation
 
 #### Week 10: Stripe & Polish
+
 - [ ] Stripe donation system
 - [ ] Final testing and optimization
 - [ ] Performance audits
@@ -966,30 +1072,35 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=
 ## Future Considerations
 
 ### 1. Scalability Planning
+
 - **Database**: Firestore scaling for high volume
 - **CDN**: Global content distribution
 - **Caching**: Redis for session management
 - **API**: Rate limiting and authentication
 
 ### 2. SEO & Marketing
+
 - **Meta tags**: Comprehensive OpenGraph and Twitter Cards
 - **Structured data**: Schema.org markup
 - **Sitemap**: Automatic generation
 - **Analytics**: Google Analytics 4 integration
 
 ### 3. Security Measures
+
 - **Authentication**: Firebase Security Rules
 - **Data validation**: Server-side validation
 - **XSS protection**: Content sanitization
 - **CSRF protection**: Token-based protection
 
 ### 4. Monitoring & Analytics
+
 - **Error tracking**: Sentry integration
 - **Performance**: Vercel Analytics + Web Vitals
 - **User analytics**: Privacy-respecting analytics
 - **Uptime monitoring**: Automated alerts
 
 ### 5. Content Strategy
+
 - **Blog topics**: AI ethics, Quebec sovereignty, legal updates
 - **Guest contributors**: Researchers, lawyers, artists
 - **Social media**: Cross-platform content sharing
@@ -1000,24 +1111,28 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=
 ## Technical Decision Rationale
 
 ### 1. Why Next.js 14 (App Router)
+
 - **Performance**: Excellent build optimization and caching
 - **SEO**: Server-side rendering for better search visibility
 - **Internationalization**: Built-in i18n support
 - **Developer Experience**: Great TypeScript integration
 
 ### 2. Why Tailwind CSS
+
 - **Rapid development**: Utility-first approach
 - **Consistency**: Design system constraints
 - **Performance**: Minimal CSS bundle size
 - **Maintainability**: Clear, readable component styles
 
 ### 3. Why Firebase (Phase 2)
+
 - **Scalability**: Google Cloud infrastructure
 - **Real-time features**: Live updates for collaborative features
 - **Authentication**: Comprehensive auth providers
 - **Cost-effective**: Pay-as-you-scale pricing
 
 ### 4. Why CyberImpact Integration
+
 - **Existing infrastructure**: Already available
 - **GDPR compliance**: Built-in privacy features
 - **Email automation**: Newsletter and follow-ups

@@ -6,6 +6,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useTranslation } from "@/contexts/TranslationContext";
 import LanguageToggle from "./LanguageToggle";
 import Image from "next/image";
+import DonateButton from "../DonationButton";
 
 export default function Header() {
   const { t, language } = useTranslation();
@@ -170,6 +171,10 @@ export default function Header() {
           {/* Right side items */}
           <div className="flex items-center gap-4">
             <div className="hidden md:block">
+              <DonateButton compact={true} />
+            </div>
+
+            <div className="hidden md:block">
               <LanguageToggle />
             </div>
 
@@ -324,6 +329,11 @@ export default function Header() {
                 />
               </svg>
             </Link>
+
+            {/* Mobile Donation Button */}
+            <div className="mt-2">
+              <DonateButton />
+            </div>
           </div>
           <div className="pt-4 pb-3 border-t border-white/10">
             <div className="flex items-center px-5">
